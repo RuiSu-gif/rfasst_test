@@ -14,11 +14,14 @@
 #' @param saveOutput Writes the files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param emissions_dir Optional path to the directory containing Module 1
+#'   emission CSV files. When provided, emissions are read from these files
+#'   using `scen_name` and `year` instead of querying the GCAM database.
 #' @importFrom magrittr %>%
 #' @export
 
 m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                           saveOutput = T, map = F, anim = T){
+                           saveOutput = T, map = F, anim = T, emissions_dir = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -42,7 +45,19 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year)
+  if(is.null(emissions_dir)){
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year)
+  }else{
+    em.list<-lapply(all_years, function(yr){
+      file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
+      df<-utils::read.csv(file, stringsAsFactors = FALSE)
+      df %>%
+        dplyr::mutate(year = yr) %>%
+        tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+        dplyr::rename(region = COUNTRY) %>%
+        dplyr::filter(region != "*TOTAL*")
+    })
+  }
 
   #----------------------------------------------------------------------
   #----------------------------------------------------------------------
@@ -401,11 +416,14 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 #' @param ch4_o3  Includes the CH4 effect on O3 based on Fiore et al (2008).By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param emissions_dir Optional path to the directory containing Module 1
+#'   emission CSV files. When provided, emissions are read from these files
+#'   using `scen_name` and `year` instead of querying the GCAM database.
 #' @importFrom magrittr %>%
 #' @export
 
 m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                         saveOutput = T, ch4_o3 = T, map = F, anim = T){
+                         saveOutput = T, ch4_o3 = T, map = F, anim = T, emissions_dir = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -429,7 +447,19 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  if(is.null(emissions_dir)){
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  }else{
+    em.list<-lapply(all_years, function(yr){
+      file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
+      df<-utils::read.csv(file, stringsAsFactors = FALSE)
+      df %>%
+        dplyr::mutate(year = yr) %>%
+        tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+        dplyr::rename(region = COUNTRY) %>%
+        dplyr::filter(region != "*TOTAL*")
+    })
+  }
 
   # First we load the base concentration and emissions, which are required for the calculations
   base_conc<-raw.base_conc %>%
@@ -628,12 +658,15 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param emissions_dir Optional path to the directory containing Module 1
+#'   emission CSV files. When provided, emissions are read from these files
+#'   using `scen_name` and `year` instead of querying the GCAM database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                          saveOutput = T, map = F, anim = T){
+                          saveOutput = T, map = F, anim = T, emissions_dir = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -657,7 +690,19 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  em.list<-m1_emissions_rescale(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput = F, final_db_year = final_db_year)
+  if(is.null(emissions_dir)){
+    em.list<-m1_emissions_rescale(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput = F, final_db_year = final_db_year)
+  }else{
+    em.list<-lapply(all_years, function(yr){
+      file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
+      df<-utils::read.csv(file, stringsAsFactors = FALSE)
+      df %>%
+        dplyr::mutate(year = yr) %>%
+        tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+        dplyr::rename(region = COUNTRY) %>%
+        dplyr::filter(region != "*TOTAL*")
+    })
+  }
 
   # First we load the base concentration and emissions, which are required for the calculations
   base_conc<-raw.base_conc %>%
@@ -887,12 +932,15 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param emissions_dir Optional path to the directory containing Module 1
+#'   emission CSV files. When provided, emissions are read from these files
+#'   using `scen_name` and `year` instead of querying the GCAM database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                            saveOutput = T, map = F, anim = T){
+                            saveOutput = T, map = F, anim = T, emissions_dir = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -916,7 +964,19 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  if(is.null(emissions_dir)){
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  }else{
+    em.list<-lapply(all_years, function(yr){
+      file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
+      df<-utils::read.csv(file, stringsAsFactors = FALSE)
+      df %>%
+        dplyr::mutate(year = yr) %>%
+        tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+        dplyr::rename(region = COUNTRY) %>%
+        dplyr::filter(region != "*TOTAL*")
+    })
+  }
 
   # First we load the base concentration and emissions, which are required for the calculations
 
@@ -1312,12 +1372,15 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param emissions_dir Optional path to the directory containing Module 1
+#'   emission CSV files. When provided, emissions are read from these files
+#'   using `scen_name` and `year` instead of querying the GCAM database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                         saveOutput = T, map = F, anim = T){
+                         saveOutput = T, map = F, anim = T, emissions_dir = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -1341,7 +1404,19 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  em.list<-m1_emissions_rescale(db_path,query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  if(is.null(emissions_dir)){
+    em.list<-m1_emissions_rescale(db_path,query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  }else{
+    em.list<-lapply(all_years, function(yr){
+      file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
+      df<-utils::read.csv(file, stringsAsFactors = FALSE)
+      df %>%
+        dplyr::mutate(year = yr) %>%
+        tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+        dplyr::rename(region = COUNTRY) %>%
+        dplyr::filter(region != "*TOTAL*")
+    })
+  }
 
   # First we load the base concentration and emissions, which are required for the calculations
 
