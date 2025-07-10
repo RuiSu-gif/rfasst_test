@@ -108,6 +108,13 @@ library(rfasst)
 db_path <- "path_to/testOutputs"
 em_dir  <- "path_to/output/m1"   # contains Reference_2015.csv, etc.
 
+em_data <- lapply(c(2015, 2020), function(yr) {
+  read.csv(file.path(em_dir, paste0("Reference_", yr, ".csv"))) %>%
+    dplyr::mutate(year = yr) %>%
+    tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+    dplyr::rename(region = COUNTRY)
+})
+
 pm25 <- m2_get_conc_pm25(
   db_path       = db_path,
   query_path    = "./inst/extdata",
@@ -116,7 +123,7 @@ pm25 <- m2_get_conc_pm25(
   scen_name     = "Reference",
   queries       = "queries_rfasst.xml",
   final_db_year = 2030,
-  emissions_dir = em_dir,
+  emissions_data = em_data,
   saveOutput    = FALSE
 )
 ```
