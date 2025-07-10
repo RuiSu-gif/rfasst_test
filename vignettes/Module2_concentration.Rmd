@@ -32,11 +32,16 @@ library(magrittr)
 
   # To write the csv files into the output folder:
 
-     m2_get_conc_pm25(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=T,map=F) 
+     em_data <- read.csv("my_emissions.csv")
+     m2_get_conc_pm25(db_path,query_path,db_name,prj_name,scen_name,queries,
+                      emissions_data=list(em_data),
+                      saveOutput=T,map=F)
 
   # To save as data frame pm2.5 concentration levels by TM5-FASST region in year 2050:
 
-     pm25.conc.2050<-dplyr::bind_rows(m2_get_conc_pm25(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=F)) %>% dplyr::filter(year==2050) 
+     pm25.conc.2050<-dplyr::bind_rows(m2_get_conc_pm25(db_path,query_path,db_name,prj_name,scen_name,
+                                                     queries,emissions_data=list(em_data),saveOutput=F)) %>%
+       dplyr::filter(year==2050)
                          
      head(pm25.conc.2050)
 
