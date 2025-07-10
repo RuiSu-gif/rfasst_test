@@ -75,16 +75,24 @@ library(magrittr)
     
     # Relative yield losses.
       # Using AOT40 as O3 exposure indicator:
-         ryl.aot40.2050<-dplyr::bind_rows(m4_get_ryl_aot40(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=F, map=F)) %>% dplyr::filter(year==2050)
+         ryl.aot40.2050<-dplyr::bind_rows(m4_get_ryl_aot40(db_path,query_path,db_name,prj_name,scen_name,queries,
+                                                           saveOutput=F, map=F, conc_dir="path_to/output/m2")) %>%
+           dplyr::filter(year==2050)
                                                               
       # Using Mi as O3 exposure indicator:
-         ryl.mi.2050<-dplyr::bind_rows(m4_get_ryl_mi(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=F, map=F)) %>% dplyr::filter(year==2050)
+         ryl.mi.2050<-dplyr::bind_rows(m4_get_ryl_mi(db_path,query_path,db_name,prj_name,scen_name,queries,
+                                                     saveOutput=F, map=F, conc_dir="path_to/output/m2")) %>%
+           dplyr::filter(year==2050)
 
     # Production losses (includes losses using both AOT40 and Mi).
-       prod.loss.2050<-dplyr::bind_rows(m4_get_prod_loss(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=T, map=F)) %>% dplyr::filter(year==2050)
+       prod.loss.2050<-dplyr::bind_rows(m4_get_prod_loss(db_path,query_path,db_name,prj_name,scen_name,queries,
+                                                         saveOutput=T, map=F, conc_dir="path_to/output/m2")) %>%
+         dplyr::filter(year==2050)
 
     # Revenue losses (includes losses using both AOT40 and Mi).
-       rev.loss.2050<-dplyr::bind_rows(m4_get_rev_loss(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput=T, map=F)) %>% dplyr::filter(year==2050)
+       rev.loss.2050<-dplyr::bind_rows(m4_get_rev_loss(db_path,query_path,db_name,prj_name,scen_name,queries,
+                                                       saveOutput=T, map=F, conc_dir="path_to/output/m2")) %>%
+         dplyr::filter(year==2050)
 
 
 ```

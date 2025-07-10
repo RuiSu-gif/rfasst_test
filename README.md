@@ -130,6 +130,11 @@ pm25 <- m2_get_conc_pm25(
 
 CSV files must follow the naming pattern `<SCENARIO>_<YEAR>.csv` and reside in the directory given by `emissions_dir`.
 
+Module 3 and 4 functions can reuse concentration outputs written by Module 2.
+Provide the folder path via the `conc_dir` parameter (or pass loaded data with
+`conc_data`) when calling functions such as `m3_get_mort_pm25()` or
+`m4_get_ryl_aot40()`.
+
 
 In addition, the package includes some default input files (.Rda), that are read by the different functions. These can be changed by the user. Some of these constants include:
 - GCAM crop categories to be included in the analysis
