@@ -188,11 +188,17 @@ calc_daly_pm25<-function(){
 #' @param ssp Set the ssp narrative associated to the GCAM scenario. c("SSP1","SSP2","SSP3","SSP4","SSP5"). By default is SSP2
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files. When
+#'   supplied, PM2.5 data are read from `PM2.5_<SCENARIO>_<YEAR>.csv` in this
+#'   directory instead of calling `m2_get_conc_pm25`.
+#' @param conc_data Optional data frame with PM2.5 concentrations returned by
+#'   `m2_get_conc_pm25`. Overrides `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
 m3_get_mort_pm25<-function(db_path,query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                           ssp = "SSP2", saveOutput = T, map = F, anim = T){
+                           ssp = "SSP2", saveOutput = T, map = F, anim = T,
+                           conc_dir = NULL, conc_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -217,7 +223,16 @@ m3_get_mort_pm25<-function(db_path,query_path, db_name, prj_name, scen_name, que
     dplyr::mutate(subRegionAlt = as.factor(subRegionAlt))
 
   # Get PM2.5
-  pm<-m2_get_conc_pm25(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  if(!is.null(conc_data)){
+    pm <- conc_data
+  }else if(!is.null(conc_dir)){
+    pm <- lapply(all_years, function(yr){
+      file <- file.path(conc_dir, paste0("PM2.5_", scen_name, "_", yr, ".csv"))
+      utils::read.csv(file, stringsAsFactors = FALSE)
+    }) %>% dplyr::bind_rows()
+  }else{
+    pm<-m2_get_conc_pm25(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  }
 
   # Get population
   pop.all<-calc_pop(ssp = ssp)
@@ -402,6 +417,11 @@ m3_get_mort_pm25<-function(db_path,query_path, db_name, prj_name, scen_name, que
 #' @param ssp Set the ssp narrative associated to the GCAM scenario. c("SSP1","SSP2","SSP3","SSP4","SSP5"). By default is SSP2
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files. When
+#'   supplied, M6M data are read from `M6M_<SCENARIO>_<YEAR>.csv` in this
+#'   directory instead of calling `m2_get_conc_m6m`.
+#' @param conc_data Optional data frame with M6M concentrations returned by
+#'   `m2_get_conc_m6m`. Overrides `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
@@ -935,7 +955,8 @@ m3_get_daly_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 #' @export
 
 m3_get_mort_o3<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                         ssp = "SSP2", saveOutput = T, map = F, anim = T){
+                         ssp = "SSP2", saveOutput = T, map = F, anim = T,
+                         conc_dir = NULL, conc_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -960,7 +981,16 @@ m3_get_mort_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
   # Get PM2.5
-  m6m<-m2_get_conc_m6m(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  if(!is.null(conc_data)){
+    m6m <- conc_data
+  }else if(!is.null(conc_dir)){
+    m6m <- lapply(all_years, function(yr){
+      file <- file.path(conc_dir, paste0("M6M_", scen_name, "_", yr, ".csv"))
+      utils::read.csv(file, stringsAsFactors = FALSE)
+    }) %>% dplyr::bind_rows()
+  }else{
+    m6m<-m2_get_conc_m6m(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
+  }
 
   # Get population
   pop.all<-calc_pop(ssp = ssp)

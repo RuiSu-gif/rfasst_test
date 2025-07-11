@@ -14,6 +14,11 @@
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files. When
+#'   supplied, AOT40 data are read from `AOT40_<SCENARIO>_<YEAR>.csv` in this
+#'   directory instead of calling `m2_get_conc_aot40`.
+#' @param conc_data Optional data frame with AOT40 concentrations returned by
+#'   `m2_get_conc_aot40`. Overrides `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
@@ -124,6 +129,11 @@ calc_prod_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files. When
+#'   supplied, Mi data are read from `Mi_<SCENARIO>_<YEAR>.csv` in this
+#'   directory instead of calling `m2_get_conc_mi`.
+#' @param conc_data Optional data frame with Mi concentrations returned by
+#'   `m2_get_conc_mi`. Overrides `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
@@ -223,6 +233,11 @@ calc_price_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, que
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files to reuse
+#'   AOT40 and Mi results when calculating production losses. Files must follow
+#'   `AOT40_<SCENARIO>_<YEAR>.csv` and `Mi_<SCENARIO>_<YEAR>.csv` naming.
+#' @param conc_data Optional list or data frames with concentration data. When
+#'   supplied, it overrides `conc_dir`.
 #' @importFrom magrittr %>%
 #' @export
 
@@ -324,11 +339,16 @@ calc_rev_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, queri
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files to reuse
+#'   AOT40 and Mi results. Same naming convention as in `m4_get_prod_loss`.
+#' @param conc_data Optional list with elements `aot40` and `mi` containing
+#'   concentration data frames. Overrides `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
 m4_get_ryl_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                           saveOutput = T, map = F, anim = T){
+                           saveOutput = T, map = F, anim = T,
+                           conc_dir = NULL, conc_data = NULL){
 
 
   all_years<-all_years[all_years <= final_db_year]
@@ -353,7 +373,16 @@ m4_get_ryl_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, qu
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  aot40<-m2_get_conc_aot40(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  if(!is.null(conc_data)){
+    aot40 <- conc_data
+  }else if(!is.null(conc_dir)){
+    aot40 <- lapply(all_years, function(yr){
+      file <- file.path(conc_dir, paste0("AOT40_", scen_name, "_", yr, ".csv"))
+      utils::read.csv(file, stringsAsFactors = FALSE)
+    }) %>% dplyr::bind_rows()
+  }else{
+    aot40<-m2_get_conc_aot40(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  }
 
   aot40.list<-split(aot40, aot40$year)
   #------------------------------------------------------------------------------------
@@ -443,11 +472,16 @@ m4_get_ryl_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 #' @param saveOutput Writes the emission files.By default=T
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param conc_dir Optional path to Module 2 concentration CSV files. Naming
+#'   follows `AOT40_<SCENARIO>_<YEAR>.csv` and `Mi_<SCENARIO>_<YEAR>.csv`.
+#' @param conc_data Optional list with `aot40` and `mi` data frames overriding
+#'   `conc_dir` when provided.
 #' @importFrom magrittr %>%
 #' @export
 
 m4_get_ryl_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                        saveOutput = T, map = F, anim = T){
+                        saveOutput = T, map = F, anim = T,
+                        conc_dir = NULL, conc_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -471,7 +505,16 @@ m4_get_ryl_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queri
     dplyr::rename(subRegion = fasst_region) %>%
     dplyr::mutate(subRegionAlt = as.factor(subRegionAlt))
 
-  mi<-m2_get_conc_mi(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  if(!is.null(conc_data)){
+    mi <- conc_data
+  }else if(!is.null(conc_dir)){
+    mi <- lapply(all_years, function(yr){
+      file <- file.path(conc_dir, paste0("Mi_", scen_name, "_", yr, ".csv"))
+      utils::read.csv(file, stringsAsFactors = FALSE)
+    }) %>% dplyr::bind_rows()
+  }else{
+    mi<-m2_get_conc_mi(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  }
 
   mi.list<-split(mi, mi$year)
   #------------------------------------------------------------------------------------
@@ -565,7 +608,8 @@ m4_get_ryl_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queri
 #' @export
 
 m4_get_prod_loss<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                           saveOutput = T, map = F, anim = T){
+                           saveOutput = T, map = F, anim = T,
+                           conc_dir = NULL, conc_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -590,10 +634,23 @@ m4_get_prod_loss<-function(db_path, query_path, db_name, prj_name, scen_name, qu
     dplyr::mutate(subRegionAlt = as.factor(subRegionAlt))
 
   # Get AOT40 RYLs
-  ryl.aot.40.fin<-m4_get_ryl_aot40(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  aot_data <- NULL
+  mi_data  <- NULL
+  if(!is.null(conc_data)){
+    if(is.list(conc_data)){
+      aot_data <- conc_data$aot40
+      mi_data  <- conc_data$mi
+    }
+  }
+
+  ryl.aot.40.fin<-m4_get_ryl_aot40(db_path, query_path, db_name, prj_name, scen_name, queries,
+                                   final_db_year = final_db_year, saveOutput = F,
+                                   conc_dir = conc_dir, conc_data = aot_data)
 
   # Get Mi RYLs
-  ryl.mi.fin<-m4_get_ryl_mi(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  ryl.mi.fin<-m4_get_ryl_mi(db_path, query_path, db_name, prj_name, scen_name, queries,
+                            final_db_year = final_db_year, saveOutput = F,
+                            conc_dir = conc_dir, conc_data = mi_data)
 
   # Get Prod
   prod<-calc_prod_gcam(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
@@ -779,7 +836,8 @@ m4_get_prod_loss<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 #' @export
 
 m4_get_rev_loss<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                          saveOutput = T, map = F, anim = T){
+                          saveOutput = T, map = F, anim = T,
+                          conc_dir = NULL, conc_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -804,10 +862,23 @@ m4_get_rev_loss<-function(db_path, query_path, db_name, prj_name, scen_name, que
     dplyr::mutate(subRegionAlt = as.factor(subRegionAlt))
 
   # Get AOT40 RYLs
-  ryl.aot.40.fin<-m4_get_ryl_aot40(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  aot_data <- NULL
+  mi_data  <- NULL
+  if(!is.null(conc_data)){
+    if(is.list(conc_data)){
+      aot_data <- conc_data$aot40
+      mi_data  <- conc_data$mi
+    }
+  }
+
+  ryl.aot.40.fin<-m4_get_ryl_aot40(db_path, query_path, db_name, prj_name, scen_name, queries,
+                                   final_db_year = final_db_year, saveOutput = F,
+                                   conc_dir = conc_dir, conc_data = aot_data)
 
   # Get Mi RYLs
-  ryl.mi.fin<-m4_get_ryl_mi(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)
+  ryl.mi.fin<-m4_get_ryl_mi(db_path, query_path, db_name, prj_name, scen_name, queries,
+                            final_db_year = final_db_year, saveOutput = F,
+                            conc_dir = conc_dir, conc_data = mi_data)
 
   # Get Revenue: re-calculate to consider C4 categories
   prod<-calc_prod_gcam(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = final_db_year, saveOutput = F)

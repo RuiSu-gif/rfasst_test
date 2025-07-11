@@ -98,6 +98,44 @@ The package consists of a set of functions divided in four different modules:
 - Module 3. Health: Report adverse health effects attributable to exposure to fine particulate matter (PM2.5) and ozone (O3; M6M). More details in the [Module3 health](https://jgcri.github.io/rfasst/articles/Module3_health.html) page. 
 - Module 4. Agriculture: Estimate adverse agricultural impacts associated to ozone exposure, including relative yield losses (RYLs) and production and revenue losses. More details in the [Module4 agriculture](https://jgcri.github.io/rfasst/articles/Module4_agriculture.html) page. 
 
+## Using Module 2 with CSV emissions
+
+Module 2 functions now accept an optional `emissions_dir` argument. If you supply the path to the folder containing the rescaled emission CSVs written by Module 1 (`m1_emissions_rescale(..., saveOutput = TRUE)`), the functions will read these files directly instead of querying the GCAM database.
+
+```r
+library(rfasst)
+
+db_path <- "path_to/testOutputs"
+em_dir  <- "path_to/output/m1"   # contains Reference_2015.csv, etc.
+
+em_data <- lapply(c(2015, 2020), function(yr) {
+  read.csv(file.path(em_dir, paste0("Reference_", yr, ".csv"))) %>%
+    dplyr::mutate(year = yr) %>%
+    tidyr::gather(pollutant, value, -COUNTRY, -year) %>%
+    dplyr::rename(region = COUNTRY)
+})
+
+pm25 <- m2_get_conc_pm25(
+  db_path       = db_path,
+  query_path    = "./inst/extdata",
+  db_name       = "database_basexdb_ref",
+  prj_name      = "scentest.dat",
+  scen_name     = "Reference",
+  queries       = "queries_rfasst.xml",
+  final_db_year = 2030,
+  emissions_data = em_data,
+  saveOutput    = FALSE
+)
+```
+
+CSV files must follow the naming pattern `<SCENARIO>_<YEAR>.csv` and reside in the directory given by `emissions_dir`.
+
+Module 3 and 4 functions can reuse concentration outputs written by Module 2.
+Provide the folder path via the `conc_dir` parameter (or pass loaded data with
+`conc_data`) when calling functions such as `m3_get_mort_pm25()` or
+`m4_get_ryl_aot40()`.
+
+
 In addition, the package includes some default input files (.Rda), that are read by the different functions. These can be changed by the user. Some of these constants include:
 - GCAM crop categories to be included in the analysis
 - Shares to allocate emissions between Russia Eastern (RUE) and Russia Western (RUS)

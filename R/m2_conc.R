@@ -17,11 +17,15 @@
 #' @param emissions_dir Optional path to the directory containing Module 1
 #'   emission CSV files. When provided, emissions are read from these files
 #'   using `scen_name` and `year` instead of querying the GCAM database.
+#' @param emissions_data Optional list of data frames returned by
+#'   `m1_emissions_rescale()` or read from CSV. When provided, emissions are
+#'   taken from this list instead of `emissions_dir` or querying the database.
 #' @importFrom magrittr %>%
 #' @export
 
 m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                           saveOutput = T, map = F, anim = T, emissions_dir = NULL){
+                           saveOutput = T, map = F, anim = T, emissions_dir = NULL,
+                           emissions_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -45,7 +49,9 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  if(is.null(emissions_dir)){
+  if(!is.null(emissions_data)){
+    em.list <- emissions_data
+  }else if(is.null(emissions_dir)){
     em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year)
   }else{
     em.list<-lapply(all_years, function(yr){
@@ -380,10 +386,14 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
       dplyr::mutate(units="ug/m3",
                     year=as.numeric(as.character(year)))
 
+    brks <- seq(floor(min(pm25.map$value)/5)*5,
+                ceiling(max(pm25.map$value)/5)*5, by = 5)
+
     rmap::map(data = pm25.map,
               shape = fasstSubset,
               folder = "output/maps/m2/maps_pm2.5",
               legendType = "pretty",
+              breaks = brks,
               background  = T,
               animate = anim)
 
@@ -419,11 +429,15 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 #' @param emissions_dir Optional path to the directory containing Module 1
 #'   emission CSV files. When provided, emissions are read from these files
 #'   using `scen_name` and `year` instead of querying the GCAM database.
+#' @param emissions_data Optional list of data frames returned by
+#'   `m1_emissions_rescale()` or read from CSV. When provided, emissions are
+#'   taken from this list instead of `emissions_dir` or querying the database.
 #' @importFrom magrittr %>%
 #' @export
 
 m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                         saveOutput = T, ch4_o3 = T, map = F, anim = T, emissions_dir = NULL){
+                         saveOutput = T, ch4_o3 = T, map = F, anim = T, emissions_dir = NULL,
+                         emissions_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -447,7 +461,9 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  if(is.null(emissions_dir)){
+  if(!is.null(emissions_data)){
+    em.list <- emissions_data
+  }else if(is.null(emissions_dir)){
     em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }else{
     em.list<-lapply(all_years, function(yr){
@@ -622,10 +638,14 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
       dplyr::mutate(units="ppbv",
                     year=as.numeric(as.character(year)))
 
+    brks <- seq(floor(min(o3.map$value)/5)*5,
+                ceiling(max(o3.map$value)/5)*5, by = 5)
+
     rmap::map(data = o3.map,
               shape = fasstSubset,
               folder = "output/maps/m2/maps_o3",
               legendType = "pretty",
+              breaks = brks,
               background  = T,
               animate = anim)
 
@@ -661,12 +681,16 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 #' @param emissions_dir Optional path to the directory containing Module 1
 #'   emission CSV files. When provided, emissions are read from these files
 #'   using `scen_name` and `year` instead of querying the GCAM database.
+#' @param emissions_data Optional list of data frames returned by
+#'   `m1_emissions_rescale()` or read from CSV. When provided, emissions are
+#'   taken from this list instead of `emissions_dir` or querying the database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                          saveOutput = T, map = F, anim = T, emissions_dir = NULL){
+                          saveOutput = T, map = F, anim = T, emissions_dir = NULL,
+                          emissions_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -690,7 +714,9 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  if(is.null(emissions_dir)){
+  if(!is.null(emissions_data)){
+    em.list <- emissions_data
+  }else if(is.null(emissions_dir)){
     em.list<-m1_emissions_rescale(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput = F, final_db_year = final_db_year)
   }else{
     em.list<-lapply(all_years, function(yr){
@@ -896,10 +922,14 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
       dplyr::mutate(units = "ppbv",
                     year=as.numeric(as.character(year)))
 
+    brks <- seq(floor(min(m6m.map$value)/5)*5,
+                ceiling(max(m6m.map$value)/5)*5, by = 5)
+
     rmap::map(data = m6m.map,
               shape = fasstSubset,
               folder = "output/maps/m2/maps_m6m",
               legendType = "pretty",
+              breaks = brks,
               background  = T,
               animate = anim)
 
@@ -935,12 +965,16 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
 #' @param emissions_dir Optional path to the directory containing Module 1
 #'   emission CSV files. When provided, emissions are read from these files
 #'   using `scen_name` and `year` instead of querying the GCAM database.
+#' @param emissions_data Optional list of data frames returned by
+#'   `m1_emissions_rescale()` or read from CSV. When provided, emissions are
+#'   taken from this list instead of `emissions_dir` or querying the database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                            saveOutput = T, map = F, anim = T, emissions_dir = NULL){
+                            saveOutput = T, map = F, anim = T, emissions_dir = NULL,
+                            emissions_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -964,7 +998,9 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  if(is.null(emissions_dir)){
+  if(!is.null(emissions_data)){
+    em.list <- emissions_data
+  }else if(is.null(emissions_dir)){
     em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }else{
     em.list<-lapply(all_years, function(yr){
@@ -1324,6 +1360,9 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
       dplyr::mutate(units = "ppm.h",
                     year = as.numeric(as.character(year)))
 
+    brks <- seq(floor(min(aot.map$value)/5)*5,
+                ceiling(max(aot.map$value)/5)*5, by = 5)
+
     aot.map.list<-split(aot.map,aot.map$pollutant)
 
    make.map.aot40<-function(df){
@@ -1336,6 +1375,7 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
               shape = fasstSubset,
               folder =paste0("output/maps/m2/maps_aot40/maps_aot40_",unique(df$crop)),
               legendType = "pretty",
+              breaks = brks,
               background  = T,
               animate = anim)
 
@@ -1375,12 +1415,16 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 #' @param emissions_dir Optional path to the directory containing Module 1
 #'   emission CSV files. When provided, emissions are read from these files
 #'   using `scen_name` and `year` instead of querying the GCAM database.
+#' @param emissions_data Optional list of data frames returned by
+#'   `m1_emissions_rescale()` or read from CSV. When provided, emissions are
+#'   taken from this list instead of `emissions_dir` or querying the database.
 #' @importFrom magrittr %>%
 #' @export
 
 
 m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queries, final_db_year = 2100,
-                         saveOutput = T, map = F, anim = T, emissions_dir = NULL){
+                         saveOutput = T, map = F, anim = T, emissions_dir = NULL,
+                         emissions_data = NULL){
 
   all_years<-all_years[all_years <= final_db_year]
 
@@ -1404,7 +1448,9 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
     dplyr::rename(subRegion=fasst_region) %>%
     dplyr::mutate(subRegionAlt=as.factor(subRegionAlt))
 
-  if(is.null(emissions_dir)){
+  if(!is.null(emissions_data)){
+    em.list <- emissions_data
+  }else if(is.null(emissions_dir)){
     em.list<-m1_emissions_rescale(db_path,query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }else{
     em.list<-lapply(all_years, function(yr){
@@ -1762,6 +1808,9 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
       dplyr::mutate(units = "ppbv",
                     year = as.numeric(as.character(year)))
 
+    brks <- seq(floor(min(mi.map$value)/5)*5,
+                ceiling(max(mi.map$value)/5)*5, by = 5)
+
     mi.map.list<-split(mi.map,mi.map$pollutant)
 
     make.map.mi<-function(df){
@@ -1774,6 +1823,7 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
                 shape = fasstSubset,
                 folder =paste0("output/maps/m2/maps_Mi/maps_Mi_",unique(df$crop)),
                 legendType = "pretty",
+                breaks = brks,
                 background  = T,
                 animate = anim)
 
