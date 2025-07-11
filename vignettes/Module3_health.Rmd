@@ -37,7 +37,7 @@ library(magrittr)
   # To save this data by TM5-FASST region in year 2050 as dataframes:
 
     pm25.mort.2050<-dplyr::bind_rows(m3_get_mort_pm25(db_path,query_path,db_name,prj_name,scen_name,queries,
-                                                      saveOutput=F, map=F, conc_dir="path_to/output/m2")) %>%
+                                                      saveOutput=F, map=F, conc_dir="path_to/output/m2/SCENARIO")) %>%
        dplyr::filter(year==2050)
      head(pm25.mort.2050)
 

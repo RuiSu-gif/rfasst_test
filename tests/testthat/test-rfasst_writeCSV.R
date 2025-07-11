@@ -51,7 +51,7 @@ test_that("module 2 writes csv file for PM2.5 concentration", {
   selected_year<-max(a$year)
   scen_name = "Reference"
 
-  existing_csv_pm25_conc<-read.csv(paste0(outdir,"/m2/","PM2.5_",scen_name,"_",selected_year,".csv"))
+  existing_csv_pm25_conc<-read.csv(file.path(outdir, "m2", scen_name, paste0("PM2.5_", scen_name, "_", selected_year, ".csv")))
 
   expect_s3_class(existing_csv_pm25_conc, "data.frame")
 
@@ -77,7 +77,7 @@ test_that("module 2 writes csv file for O3 concentration", {
   selected_year<-max(a$year)
   scen_name = "Reference"
 
-  existing_csv_o3_conc<-read.csv(paste0(outdir,"/m2/","O3_",scen_name,"_",selected_year,".csv"))
+  existing_csv_o3_conc<-read.csv(file.path(outdir, "m2", scen_name, paste0("O3_", scen_name, "_", selected_year, ".csv")))
 
   expect_s3_class(existing_csv_o3_conc, "data.frame")
 
@@ -103,7 +103,7 @@ test_that("module 2 writes csv file for O3-M6M concentration", {
   selected_year<-max(a$year)
   scen_name = "Reference"
 
-  existing_csv_m6m_conc<-read.csv(paste0(outdir,"/m2/","M6M_",scen_name,"_",selected_year,".csv"))
+  existing_csv_m6m_conc<-read.csv(file.path(outdir, "m2", scen_name, paste0("M6M_", scen_name, "_", selected_year, ".csv")))
 
   expect_s3_class(existing_csv_m6m_conc, "data.frame")
 
@@ -129,7 +129,7 @@ test_that("module 2 writes csv file for O3-AOT40 concentration", {
   selected_year<-max(a$year)
   scen_name = "Reference"
 
-  existing_csv_aot40_conc<-read.csv(paste0(outdir,"/m2/","AOT40_",scen_name,"_",selected_year,".csv"))
+  existing_csv_aot40_conc<-read.csv(file.path(outdir, "m2", scen_name, paste0("AOT40_", scen_name, "_", selected_year, ".csv")))
 
   expect_s3_class(existing_csv_aot40_conc, "data.frame")
 
@@ -155,7 +155,7 @@ test_that("module 2 writes csv file for O3-Mi concentration", {
   selected_year<-max(a$year)
   scen_name = "Reference"
 
-  existing_csv_mi_conc<-read.csv(paste0(outdir,"/m2/","Mi_",scen_name,"_",selected_year,".csv"))
+  existing_csv_mi_conc<-read.csv(file.path(outdir, "m2", scen_name, paste0("Mi_", scen_name, "_", selected_year, ".csv")))
 
   expect_s3_class(existing_csv_mi_conc, "data.frame")
 
