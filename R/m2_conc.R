@@ -31,7 +31,9 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m2")) dir.create("output/m2")
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  out_dir <- file.path("output", "m2", scen_name)
+  if (!dir.exists(out_dir)) dir.create(out_dir)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_pm2.5")) dir.create("output/maps/m2/maps_pm2.5")
@@ -344,7 +346,7 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   pm25.write<-function(df){
     df<-as.data.frame(df)
     colnames(df)<-c("region","year","units","NAT","PRIM","SEC")
-    write.csv(df,paste0("output/","m2/","NAT_PRIM_SEC_PM2.5_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("NAT_PRIM_SEC_PM2.5_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
   if(saveOutput==T){
@@ -365,7 +367,7 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   pm25.agg.write<-function(df){
     df<-as.data.frame(df)
     colnames(df)<-c("region","year","units","value")
-    write.csv(df,paste0("output/","m2/","PM2.5_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("PM2.5_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
   if(saveOutput==T){
@@ -443,7 +445,9 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m2")) dir.create("output/m2")
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  out_dir <- file.path("output", "m2", scen_name)
+  if (!dir.exists(out_dir)) dir.create(out_dir)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_o3")) dir.create("output/maps/m2/maps_o3")
@@ -617,7 +621,7 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   o3.write<-function(df){
     df<-as.data.frame(df) %>% dplyr::select(-pollutant)
     colnames(df)<-c("region","year","units","value")
-    write.csv(df,paste0("output/","m2/","O3_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("O3_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
 
@@ -696,7 +700,9 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m2")) dir.create("output/m2")
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  out_dir <- file.path("output", "m2", scen_name)
+  if (!dir.exists(out_dir)) dir.create(out_dir)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_m6m")) dir.create("output/maps/m2/maps_m6m")
@@ -901,7 +907,7 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
   m6m.write<-function(df){
     df<-as.data.frame(df) %>% dplyr::select(-pollutant)
     colnames(df)<-c("region","year","units","value")
-    write.csv(df,paste0("output/","m2/","M6M_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("M6M_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
 
@@ -980,7 +986,9 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m2")) dir.create("output/m2")
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  out_dir <- file.path("output", "m2", scen_name)
+  if (!dir.exists(out_dir)) dir.create(out_dir)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_aot40")) dir.create("output/maps/m2/maps_aot40")
@@ -1339,7 +1347,7 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 
   aot_write<-function(df){
     df<-as.data.frame(df) %>% tidyr::spread(pollutant, value)
-    write.csv(df,paste0("output/","m2/","AOT40_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("AOT40_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
     if(saveOutput == T){
@@ -1430,7 +1438,9 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m2")) dir.create("output/m2")
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  out_dir <- file.path("output", "m2", scen_name)
+  if (!dir.exists(out_dir)) dir.create(out_dir)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_Mi")) dir.create("output/maps/m2/maps_Mi")
@@ -1786,7 +1796,7 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   mi_write<-function(df){
     df<-as.data.frame(df) %>% tidyr::spread(pollutant, value)
-    write.csv(df,paste0("output/","m2/","Mi_",scen_name,"_",unique(df$year),".csv"),row.names = F)
+    write.csv(df, file.path(out_dir, paste0("Mi_", scen_name, "_", unique(df$year), ".csv")), row.names = F)
   }
 
 
