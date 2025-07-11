@@ -53,9 +53,7 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 
   if(!is.null(emissions_data)){
     em.list <- emissions_data
-  }else if(is.null(emissions_dir)){
-    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year)
-  }else{
+  }else if(!is.null(emissions_dir)){
     em.list<-lapply(all_years, function(yr){
       file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
       df<-utils::read.csv(file, stringsAsFactors = FALSE)
@@ -65,6 +63,8 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
         dplyr::rename(region = COUNTRY) %>%
         dplyr::filter(region != "*TOTAL*")
     })
+  }else{
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year)
   }
 
   #----------------------------------------------------------------------
@@ -467,9 +467,7 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   if(!is.null(emissions_data)){
     em.list <- emissions_data
-  }else if(is.null(emissions_dir)){
-    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
-  }else{
+  }else if(!is.null(emissions_dir)){
     em.list<-lapply(all_years, function(yr){
       file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
       df<-utils::read.csv(file, stringsAsFactors = FALSE)
@@ -479,6 +477,8 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
         dplyr::rename(region = COUNTRY) %>%
         dplyr::filter(region != "*TOTAL*")
     })
+  }else{
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }
 
   # First we load the base concentration and emissions, which are required for the calculations
@@ -722,9 +722,7 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
 
   if(!is.null(emissions_data)){
     em.list <- emissions_data
-  }else if(is.null(emissions_dir)){
-    em.list<-m1_emissions_rescale(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput = F, final_db_year = final_db_year)
-  }else{
+  }else if(!is.null(emissions_dir)){
     em.list<-lapply(all_years, function(yr){
       file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
       df<-utils::read.csv(file, stringsAsFactors = FALSE)
@@ -734,6 +732,8 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
         dplyr::rename(region = COUNTRY) %>%
         dplyr::filter(region != "*TOTAL*")
     })
+  }else{
+    em.list<-m1_emissions_rescale(db_path,query_path,db_name,prj_name,scen_name,queries,saveOutput = F, final_db_year = final_db_year)
   }
 
   # First we load the base concentration and emissions, which are required for the calculations
@@ -1008,9 +1008,7 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 
   if(!is.null(emissions_data)){
     em.list <- emissions_data
-  }else if(is.null(emissions_dir)){
-    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
-  }else{
+  }else if(!is.null(emissions_dir)){
     em.list<-lapply(all_years, function(yr){
       file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
       df<-utils::read.csv(file, stringsAsFactors = FALSE)
@@ -1020,6 +1018,8 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
         dplyr::rename(region = COUNTRY) %>%
         dplyr::filter(region != "*TOTAL*")
     })
+  }else{
+    em.list<-m1_emissions_rescale(db_path, query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }
 
   # First we load the base concentration and emissions, which are required for the calculations
@@ -1460,9 +1460,7 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   if(!is.null(emissions_data)){
     em.list <- emissions_data
-  }else if(is.null(emissions_dir)){
-    em.list<-m1_emissions_rescale(db_path,query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
-  }else{
+  }else if(!is.null(emissions_dir)){
     em.list<-lapply(all_years, function(yr){
       file<-file.path(emissions_dir, paste0(scen_name, "_", yr, ".csv"))
       df<-utils::read.csv(file, stringsAsFactors = FALSE)
@@ -1472,6 +1470,8 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
         dplyr::rename(region = COUNTRY) %>%
         dplyr::filter(region != "*TOTAL*")
     })
+  }else{
+    em.list<-m1_emissions_rescale(db_path,query_path, db_name, prj_name, scen_name, queries, saveOutput = F, final_db_year = final_db_year)
   }
 
   # First we load the base concentration and emissions, which are required for the calculations
