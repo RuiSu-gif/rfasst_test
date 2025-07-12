@@ -203,11 +203,11 @@ m3_get_mort_pm25<-function(db_path,query_path, db_name, prj_name, scen_name, que
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_pm25_mort")) dir.create("output/maps/m3/maps_pm25_mort")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_pm25_mort")) dir.create("output/maps/m3/maps_pm25_mort", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -432,11 +432,11 @@ m3_get_mort_pm25_ecoloss<-function(db_path,query_path, db_name, prj_name, scen_n
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_pm25_mort_ecoloss")) dir.create("output/maps/m3/maps_pm25_mort_ecoloss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_pm25_mort_ecoloss")) dir.create("output/maps/m3/maps_pm25_mort_ecoloss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -566,11 +566,11 @@ m3_get_yll_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, que
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_pm25_yll")) dir.create("output/maps/m3/maps_pm25_yll")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_pm25_yll")) dir.create("output/maps/m3/maps_pm25_yll", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -692,11 +692,11 @@ m3_get_yll_pm25_ecoloss<-function(db_path, query_path, db_name, prj_name, scen_n
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_pm25_yll_ecoloss")) dir.create("output/maps/m3/maps_pm25_yll_ecoloss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_pm25_yll_ecoloss")) dir.create("output/maps/m3/maps_pm25_yll_ecoloss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -820,11 +820,11 @@ m3_get_daly_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_pm25_daly")) dir.create("output/maps/m3/maps_pm25_daly")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_pm25_daly")) dir.create("output/maps/m3/maps_pm25_daly", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -961,11 +961,11 @@ m3_get_mort_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_o3_mort")) dir.create("output/maps/m3/maps_o3_mort")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_o3_mort")) dir.create("output/maps/m3/maps_o3_mort", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -1120,11 +1120,11 @@ m3_get_mort_o3_ecoloss<-function(db_path, query_path, db_name, prj_name, scen_na
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_o3_mort_ecoloss")) dir.create("output/maps/m3/maps_o3_mort_ecoloss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_o3_mort_ecoloss")) dir.create("output/maps/m3/maps_o3_mort_ecoloss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -1251,11 +1251,11 @@ m3_get_yll_o3<-function(db_path, query_path, db_name, prj_name, scen_name, queri
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_o3_yll")) dir.create("output/maps/m3/maps_o3_yll")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_o3_yll")) dir.create("output/maps/m3/maps_o3_yll", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -1365,11 +1365,11 @@ m3_get_yll_o3_ecoloss<-function(db_path, query_path, db_name, prj_name, scen_nam
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_o3_yll_ecoloss")) dir.create("output/maps/m3/maps_o3_yll_ecoloss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_o3_yll_ecoloss")) dir.create("output/maps/m3/maps_o3_yll_ecoloss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -1491,11 +1491,11 @@ m3_get_daly_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m3")) dir.create("output/m3")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3")
-  if (!dir.exists("output/maps/m3/maps_o3_daly")) dir.create("output/maps/m3/maps_o3_daly")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m3")) dir.create("output/m3", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m3")) dir.create("output/maps/m3", recursive = TRUE)
+  if (!dir.exists("output/maps/m3/maps_o3_daly")) dir.create("output/maps/m3/maps_o3_daly", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
