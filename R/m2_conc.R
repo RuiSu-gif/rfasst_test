@@ -30,13 +30,13 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"), recursive = TRUE)
   out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
-  if (!dir.exists("output/maps/m2/maps_pm2.5")) dir.create("output/maps/m2/maps_pm2.5")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2", recursive = TRUE)
+  if (!dir.exists("output/maps/m2/maps_pm2.5")) dir.create("output/maps/m2/maps_pm2.5", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -440,13 +440,13 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"), recursive = TRUE)
   out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
-  if (!dir.exists("output/maps/m2/maps_o3")) dir.create("output/maps/m2/maps_o3")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2", recursive = TRUE)
+  if (!dir.exists("output/maps/m2/maps_o3")) dir.create("output/maps/m2/maps_o3", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -691,13 +691,13 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"), recursive = TRUE)
   out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
-  if (!dir.exists("output/maps/m2/maps_m6m")) dir.create("output/maps/m2/maps_m6m")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2", recursive = TRUE)
+  if (!dir.exists("output/maps/m2/maps_m6m")) dir.create("output/maps/m2/maps_m6m", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -973,13 +973,13 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"), recursive = TRUE)
   out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
-  if (!dir.exists("output/maps/m2/maps_aot40")) dir.create("output/maps/m2/maps_aot40")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2", recursive = TRUE)
+  if (!dir.exists("output/maps/m2/maps_aot40")) dir.create("output/maps/m2/maps_aot40", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -1421,13 +1421,13 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"), recursive = TRUE)
   out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
-  if (!dir.exists("output/maps/m2/maps_Mi")) dir.create("output/maps/m2/maps_Mi")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2", recursive = TRUE)
+  if (!dir.exists("output/maps/m2/maps_Mi")) dir.create("output/maps/m2/maps_Mi", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)

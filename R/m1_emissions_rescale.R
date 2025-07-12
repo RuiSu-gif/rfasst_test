@@ -24,11 +24,11 @@ m1_emissions_rescale<-function(db_path, query_path, db_name, prj_name, scen_name
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m1")) dir.create("output/m1")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m1")) dir.create("output/maps/m1")
-  if (!dir.exists("output/maps/m1/maps_em")) dir.create("output/maps/m1/maps_em")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m1")) dir.create("output/m1", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m1")) dir.create("output/maps/m1", recursive = TRUE)
+  if (!dir.exists("output/maps/m1/maps_em")) dir.create("output/maps/m1/maps_em", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)

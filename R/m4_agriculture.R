@@ -28,11 +28,11 @@ calc_prod_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, quer
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/gcam_agr_prod")) dir.create("output/maps/m4/gcam_agr_prod")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/gcam_agr_prod")) dir.create("output/maps/m4/gcam_agr_prod", recursive = TRUE)
 
   # Shape subset for maps
   fasstSubset <- rmap::mapCountries
@@ -143,11 +143,11 @@ calc_price_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, que
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/gcam_agr_price")) dir.create("output/maps/m4/gcam_agr_price")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/gcam_agr_price")) dir.create("output/maps/m4/gcam_agr_price", recursive = TRUE)
 
   # Shape subset for maps
   fasstSubset <- rmap::mapCountries
@@ -247,11 +247,11 @@ calc_rev_gcam<-function(db_path, query_path, db_name, prj_name, scen_name, queri
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/gcam_agr_rev")) dir.create("output/maps/m4/gcam_agr_rev")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/gcam_agr_rev")) dir.create("output/maps/m4/gcam_agr_rev", recursive = TRUE)
 
 
   # Shape subset for maps
@@ -354,11 +354,11 @@ m4_get_ryl_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/maps_ryl_aot40")) dir.create("output/maps/m4/maps_ryl_aot40")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/maps_ryl_aot40")) dir.create("output/maps/m4/maps_ryl_aot40", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -486,11 +486,11 @@ m4_get_ryl_mi<-function(db_path, query_path, db_name, prj_name, scen_name, queri
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/maps_ryl_mi")) dir.create("output/maps/m4/maps_ryl_mi")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/maps_ryl_mi")) dir.create("output/maps/m4/maps_ryl_mi", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -614,11 +614,11 @@ m4_get_prod_loss<-function(db_path, query_path, db_name, prj_name, scen_name, qu
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/maps_prodLoss")) dir.create("output/maps/m4/maps_prodLoss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/maps_prodLoss")) dir.create("output/maps/m4/maps_prodLoss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -842,11 +842,11 @@ m4_get_rev_loss<-function(db_path, query_path, db_name, prj_name, scen_name, que
   all_years<-all_years[all_years <= final_db_year]
 
   # Create the directories if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists("output/m4")) dir.create("output/m4")
-  if (!dir.exists("output/maps")) dir.create("output/maps")
-  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4")
-  if (!dir.exists("output/maps/m4/maps_revLoss")) dir.create("output/maps/m4/maps_revLoss")
+  if (!dir.exists("output")) dir.create("output", recursive = TRUE)
+  if (!dir.exists("output/m4")) dir.create("output/m4", recursive = TRUE)
+  if (!dir.exists("output/maps")) dir.create("output/maps", recursive = TRUE)
+  if (!dir.exists("output/maps/m4")) dir.create("output/maps/m4", recursive = TRUE)
+  if (!dir.exists("output/maps/m4/maps_revLoss")) dir.create("output/maps/m4/maps_revLoss", recursive = TRUE)
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
