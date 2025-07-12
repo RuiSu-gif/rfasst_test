@@ -31,9 +31,8 @@ m2_get_conc_pm25<-function(db_path, query_path, db_name, prj_name, scen_name, qu
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
-  out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
+  out_dir <- file.path("output", "m2")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_pm2.5")) dir.create("output/maps/m2/maps_pm2.5")
@@ -441,9 +440,8 @@ m2_get_conc_o3<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
-  out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
+  out_dir <- file.path("output", "m2")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_o3")) dir.create("output/maps/m2/maps_o3")
@@ -692,9 +690,8 @@ m2_get_conc_m6m<-function(db_path, query_path, db_name, prj_name, scen_name, que
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
-  out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
+  out_dir <- file.path("output", "m2")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_m6m")) dir.create("output/maps/m2/maps_m6m")
@@ -974,9 +971,8 @@ m2_get_conc_aot40<-function(db_path, query_path, db_name, prj_name, scen_name, q
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
-  out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
+  out_dir <- file.path("output", "m2")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_aot40")) dir.create("output/maps/m2/maps_aot40")
@@ -1422,9 +1418,8 @@ m2_get_conc_mi<-function(db_path, query_path, db_name, prj_name, scen_name, quer
 
   # Create the directories if they do not exist:
   if (!dir.exists("output")) dir.create("output")
-  if (!dir.exists(file.path("output", "m2"))) dir.create(file.path("output", "m2"))
-  out_dir <- file.path("output", "m2", scen_name)
-  if (!dir.exists(out_dir)) dir.create(out_dir)
+  out_dir <- file.path("output", "m2")
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
   if (!dir.exists("output/maps")) dir.create("output/maps")
   if (!dir.exists("output/maps/m2")) dir.create("output/maps/m2")
   if (!dir.exists("output/maps/m2/maps_Mi")) dir.create("output/maps/m2/maps_Mi")
